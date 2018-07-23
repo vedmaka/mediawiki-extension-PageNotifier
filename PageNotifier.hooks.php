@@ -16,6 +16,8 @@ class PageNotifierHooks {
 	 * @param $section
 	 * @param int $flags
 	 * @param Revision $revision
+	 * @throws ConfigException
+	 * @throws MWException
 	 */
 	public static function onPageContentInsertComplete( &$wikiPage, User &$user, $content, $summary, $isMinor, $isWatch,
 		$section, &$flags, Revision $revision ) {
