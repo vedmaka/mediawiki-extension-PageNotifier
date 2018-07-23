@@ -1,0 +1,5 @@
+{
+  "pagenotifier-desc": "Notifies specified users about new pages added to wiki",
+  "pagenotifier-subject": "New page was added to '$1' wiki",
+  "pagenotifier-text": "The following page was recently added to '$1' wiki, please review and moderate if necessary:\n\n$2 ($3)"
+}

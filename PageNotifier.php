@@ -21,10 +21,11 @@ class PageNotifier {
 	 * @param Title $title
 	 * @param User $user
 	 * @throws ConfigException
+	 * @throws MWException
 	 */
 	public function handleInsertPage( $title, $user ) {
 		if( $this->checkEligible( $title ) && $this->canNotify( $user ) ) {
-			$this->notify();
+			$this->notify( $title );
 		}
 	}
 
@@ -71,15 +72,16 @@ class PageNotifier {
 	}
 
 	/**
+	 * @param Title $title
 	 * @throws ConfigException
 	 * @throws MWException
 	 */
-	private function notify() {
+	private function notify( $title ) {
 		$config = \MediaWiki\MediaWikiServices::getInstance()->getMainConfig();
 		$targetUserName = $config->get('NotifyWatchNamespaces');
 		$targetUser = User::newFromName( $targetUserName );
-		$subject = '';
-		$mailText = '';
+		$subject = wfMessage('pagenotifier-subject')->params($config->get('SiteName'))->text();
+		$mailText = wfMessage('pagenotifier-text')->params($config->get('SiteName'), $title->getText(), $title->getFullURL() );
 		UserMailer::send( new MailAddress($targetUser->getEmail()), new MailAddress( $config->get('PasswordSender') ), $subject, $mailText );
 	}
 
