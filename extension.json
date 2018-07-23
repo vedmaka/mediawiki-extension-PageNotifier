@@ -1,0 +1,52 @@
+{
+  "name": "PageNotifier",
+  "version": "0.0.1",
+  "author": [
+    "Alexey"
+  ],
+  "url": "https://www.mediawiki.org/wiki/Extension:ORCID",
+  "descriptionmsg": "pagenotifier-desc",
+  "license-name": "MIT",
+  "type": "other",
+  "AutoloadClasses": {
+    "PageNotifier": "PageNotifier.php",
+    "PageNotifierHooks": "PageNotifier.hooks.php"
+  },
+  "config_prefix": "wg",
+  "config": {
+    "NotifyUser": {
+      "value": false,
+      "description": "User to receive notifications about new pages being created."
+    },
+    "NotifyWatchNamespaces": {
+      "value": [],
+      "description": "Namespaces to be watched for new pages appearing."
+    }
+  },
+  "callback": "PageNotifierHooks::onExtensionLoad",
+  "Hooks": {
+    "PageContentInsertComplete": [
+      "PageNotifierHooks::onPageContentInsertComplete"
+    ]
+  },
+  "MessagesDirs": {
+    "PageNotifier": [
+      "i18n"
+    ]
+  },
+  "ResourceModules": {
+    "ext.orcid.foo": {
+      "scripts": [
+        "modules/ext.PageNotifier.js"
+      ],
+      "styles": [
+        "modules/ext.PageNotifier.css"
+      ]
+    }
+  },
+  "ResourceFileModulePaths": {
+    "localBasePath": "",
+    "remoteExtPath": "PageNotifier"
+  },
+  "manifest_version": 2
+}
