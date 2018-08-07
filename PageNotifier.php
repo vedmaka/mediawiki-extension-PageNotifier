@@ -45,7 +45,7 @@ class PageNotifier {
 		if( !$realUser->getId() ) {
 			return false;
 		}
-		if( $user->getId() === $wgUser->getId() ) {
+		if( $realUser->getId() === $wgUser->getId() ) {
 			return false;
 		}
 		if( !$realUser->getEmail() ) {
@@ -78,7 +78,7 @@ class PageNotifier {
 	 */
 	private function notify( $title ) {
 		$config = \MediaWiki\MediaWikiServices::getInstance()->getMainConfig();
-		$targetUserName = $config->get('NotifyWatchNamespaces');
+		$targetUserName = $config->get('NotifyUser');
 		$targetUser = User::newFromName( $targetUserName );
 		$subject = wfMessage('pagenotifier-subject')->params($config->get('SiteName'))->text();
 		$mailText = wfMessage('pagenotifier-text')->params($config->get('SiteName'), $title->getText(), $title->getFullURL() );
